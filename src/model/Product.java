@@ -1,6 +1,8 @@
 package model;
 
-class Product{
+import java.util.ArrayList;
+
+public class Product {
 	
 	private String id;
 	private String name;
@@ -8,26 +10,33 @@ class Product{
 	private ArrayList<Waste> waste;
 	
 	//Constructor
-	Product(String id, String name, String desc){
+	public Product(String id, String name, String desc){
 		this.id = id;
 		this.name = name;
 		this.desc = desc;
 		waste = new ArrayList<Waste>();
 	}
-	
-	String getId(){
+
+	public String toString(){
+		return String.format("%s(%s - %s)",name,id,desc);
+	}
+
+	public String getId(){
 		return id;
 	}
 	
-	String getName(){
+	public String getName(){
 		return name;
 	}
 	
-	String getDesc(){
+	public String getDesc(){
 		return desc;
 	}
 	
-	ArrayList<Waste> getWaste(){
+	public ArrayList<Waste> getWaste(){
 		return waste;
 	}
+
+	
+
 }
