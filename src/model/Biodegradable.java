@@ -12,35 +12,35 @@ public class Biodegradable extends Waste implements Usable{
 	@Override
 	public double harmfulEffect(){
 		double effect = 0;
-		if(super.getOrigin().equals(Waste.INDUSTRIAL)){
+		if(super.getOrigin().equals(Constants.INDUSTRIAL)){
 			if(composting){
-				effect = super.getCompostingTime()*Waste.FACTINDUSTRIAL;
+				effect = super.getCompostingTime()*(Constants.FACTINDUSTRIAL-0.1);
 			}else{
-				effect = super.getCompostingTime()*(Waste.FACTINDUSTRIAL);
+				effect = super.getCompostingTime()*(Constants.FACTINDUSTRIAL);
 			}
-		}else if(super.getOrigin().equals(Waste.DOMICILIARY)){
+		}else if(super.getOrigin().equals(Constants.DOMICILIARY)){
 			if(composting){
-				effect = super.getCompostingTime()*Waste.FACTDOMICILIARY;
+				effect = super.getCompostingTime()*(Constants.FACTDOMICILIARY-0.1);
 			}else{
-				effect = super.getCompostingTime()*(Waste.FACTDOMICILIARY);
+				effect = super.getCompostingTime()*(Constants.FACTDOMICILIARY);
 			}
-		}else if(super.getOrigin().equals(Waste.MUNICIPAL)){
+		}else if(super.getOrigin().equals(Constants.MUNICIPAL)){
 			if(composting){
-				effect = super.getCompostingTime()*Waste.FACTMUNICIPAL;
+				effect = super.getCompostingTime()*(Constants.FACTMUNICIPAL-0.1);
 			}else{
-				effect = super.getCompostingTime()*(Waste.FACTMUNICIPAL);
+				effect = super.getCompostingTime()*(Constants.FACTMUNICIPAL);
 			}
-		}else if(super.getOrigin().equals(Waste.CONSTRUCTION)){
+		}else if(super.getOrigin().equals(Constants.CONSTRUCTION)){
 			if(composting){
-				effect = super.getCompostingTime()*Waste.FACTCONSTRUCTION;
+				effect = super.getCompostingTime()*(Constants.FACTCONSTRUCTION-0.1);
 			}else{
-				effect = super.getCompostingTime()*(Waste.FACTCONSTRUCTION);
+				effect = super.getCompostingTime()*(Constants.FACTCONSTRUCTION);
 			}
-		}else if(super.getOrigin().equals(Waste.HOSPITABLE)){
+		}else if(super.getOrigin().equals(Constants.HOSPITABLE)){
 			if(composting){
-				effect = super.getCompostingTime()*Waste.FACTHOSPITABLE;
+				effect = super.getCompostingTime()*(Constants.FACTHOSPITABLE-0.1);
 			}else{
-				effect = super.getCompostingTime()*(Waste.FACTHOSPITABLE);
+				effect = super.getCompostingTime()*(Constants.FACTHOSPITABLE);
 			}
 		}
 		return effect;

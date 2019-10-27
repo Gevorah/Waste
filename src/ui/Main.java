@@ -1,24 +1,25 @@
 package ui;
-import model.Reciclamos;
-import model.Recyclable;
-import model.Waste;
 
+import model.Reciclamos;
 import java.util.Scanner;
 
 public class Main {
 
+    //Attributes
     private Scanner reader;
     private Reciclamos control;
 
+    //Constructor
     public Main(){
         reader = new Scanner(System.in);
     }
-
+    
+    //Method that initialize the objects.
     public void init(){
         control = new Reciclamos();
         control.addProduct("10001","Mango","Yellow fruit");
         control.addWaste("12343","Mango Peel","Domiciliary","Green",10,control.check("Mango"),true);
-        control.addWaste("12344","Mango Seed","Domiciliary","White",10,control.check("Mango"),false);
+        control.addWaste("12344","Mango Seed","Domiciliary","White",3213,control.check("Mango"),false);
     }
 
     public static void main(String[] args){
@@ -29,7 +30,7 @@ public class Main {
             main.menu();
             int menu = main.reader.nextInt();
             int endAux = 1;
-            String wasteType,idWaste,nameWaste,origin,color,idProduct,nameProduct,descProduct,search;
+            String wasteType,idWaste,nameWaste,origin,color,idProduct,nameProduct,descProduct,search,aux;
             String tips = "";
             String typeRecyclable = ""; 
             String descWaste = "";
@@ -45,15 +46,15 @@ public class Main {
                     do{
                         System.out.printf("%nWaste Type: ");
                         wasteType = main.reader.nextLine();
-                        if(wasteType.equalsIgnoreCase("Biodegradable")){
+                        if(wasteType.equalsIgnoreCase("Biodegradable")||wasteType.equalsIgnoreCase("B")){
                             wasteType = "Biodegradable";
                             check = 1;
                             next = true;
-                        }else if(wasteType.equalsIgnoreCase("Inert")){
+                        }else if(wasteType.equalsIgnoreCase("Inert")||wasteType.equalsIgnoreCase("I")){
                             wasteType = "Inert";
                             check = 2;
                             next = true;
-                        }else if(wasteType.equalsIgnoreCase("Recyclable")){
+                        }else if(wasteType.equalsIgnoreCase("Recyclable")||wasteType.equalsIgnoreCase("R")){
                             wasteType = "Recyclable";
                             check = 3;
                             next = true;
@@ -65,7 +66,7 @@ public class Main {
                     do{
                         System.out.printf("%n%s Waste id: ",wasteType);
                         idWaste = main.reader.nextLine();
-                        if(main.control.searchInfoWaste(idWaste).equalsIgnoreCase("Doesn't exist")){
+                        if(main.control.searchInfoWaste(idWaste).equalsIgnoreCase("Doesn't exist.")){
                             next = true;
                         }else{
                             System.out.printf("%nThe Waste Already Exist. Try Again.%n");
@@ -75,7 +76,7 @@ public class Main {
                     do{
                         System.out.printf("%n%s Waste Name: ",wasteType);
                         nameWaste = main.reader.nextLine();
-                        if(main.control.searchInfoWaste(nameWaste).equalsIgnoreCase("Doesn't exist")){
+                        if(main.control.searchInfoWaste(nameWaste).equalsIgnoreCase("Doesn't exist.")){
                             next = true;
                         }else{
                             System.out.printf("%nThe Waste Already Exist. Try Again.%n");
@@ -85,24 +86,12 @@ public class Main {
                     do{
                         System.out.printf("%n%s Waste Origin: ",wasteType);
                         origin = main.reader.nextLine();
-                        if(origin.equalsIgnoreCase(Waste.CONSTRUCTION)){
-                            origin = Waste.CONSTRUCTION;
-                            next = true;
-                        }else if(origin.equalsIgnoreCase(Waste.DOMICILIARY)){
-                            origin = Waste.DOMICILIARY;
-                            next = true;
-                        }else if(origin.equalsIgnoreCase(Waste.HOSPITABLE)){
-                            origin = Waste.HOSPITABLE;
-                            next = true;
-                        }else if(origin.equalsIgnoreCase(Waste.INDUSTRIAL)){
-                            origin = Waste.INDUSTRIAL;
-                            next = true;
-                        }else if(origin.equalsIgnoreCase(Waste.MUNICIPAL)){
-                            origin = Waste.MUNICIPAL;
-                            next = true;
+                        if(main.control.checkOrigin(origin).equalsIgnoreCase("Incorrect.")){
+                            System.out.printf("%nIncorrect Input. Try Again.%n");
+                            next = false;
                         }else{
-                            System.out.printf("%nIncorrect Origin. Try Again.%n");
-                            next = false; 
+                            origin = main.control.checkOrigin(origin);
+                            next = true;
                         }
                     }while(next==false);
                     System.out.printf("%n%s Waste Color: ",wasteType);
@@ -123,7 +112,7 @@ public class Main {
                     if(check==1){
                         do{
                             System.out.printf("%n%s Waste Usable for Composting? ",wasteType);
-                            String aux = main.reader.nextLine();
+                            aux = main.reader.nextLine();
                             if(aux.equalsIgnoreCase("True")||aux.equalsIgnoreCase("T")){
                                 composting = true;
                                 next = true;
@@ -142,25 +131,13 @@ public class Main {
                         do{
                             System.out.printf("%n%s Waste Type: ",wasteType);
                             typeRecyclable = main.reader.nextLine();
-                            if(typeRecyclable.equalsIgnoreCase(Recyclable.PAPER)){
-                                typeRecyclable = Recyclable.PAPER;
-                                next = true;
-                            }else if(typeRecyclable.equalsIgnoreCase(Recyclable.PAPERBOARD)){
-                                typeRecyclable = Recyclable.PAPERBOARD;
-                                next = true;
-                            }else if(typeRecyclable.equalsIgnoreCase(Recyclable.GLASS)){
-                                typeRecyclable = Recyclable.GLASS;
-                                next = true;
-                            }else if(typeRecyclable.equalsIgnoreCase(Recyclable.PLASTIC)){
-                                typeRecyclable = Recyclable.PLASTIC;
-                                next = true;
-                            }else if(typeRecyclable.equalsIgnoreCase(Recyclable.METAL)){
-                                typeRecyclable = Recyclable.METAL;
-                                next = true;
-                            }else{
+                            if(main.control.checkTypeRec(typeRecyclable).equalsIgnoreCase("Incorrect.")){
                                 System.out.printf("%nIncorrect Input. Try Again.%n");
                                 next = false;
-                            } 
+                            }else{
+                                typeRecyclable = main.control.checkTypeRec(typeRecyclable);
+                                next = true;
+                            }
                         }while(next==false);
                         System.out.printf("%n%s Waste Description: ",wasteType);
                         descWaste = main.reader.nextLine();
@@ -258,15 +235,15 @@ public class Main {
                             do{
                                 System.out.printf("%nWaste Type: ");
                                 wasteType = main.reader.nextLine();
-                                if(wasteType.equalsIgnoreCase("Biodegradable")){
+                                if(wasteType.equalsIgnoreCase("Biodegradable")||wasteType.equalsIgnoreCase("B")){
                                     wasteType = "Biodegradable";
                                     check = 1;
                                     next = true;
-                                }else if(wasteType.equalsIgnoreCase("Inert")){
+                                }else if(wasteType.equalsIgnoreCase("Inert")||wasteType.equalsIgnoreCase("I")){
                                     wasteType = "Inert";
                                     check = 2;
                                     next = true;
-                                }else if(wasteType.equalsIgnoreCase("Recyclable")){
+                                }else if(wasteType.equalsIgnoreCase("Recyclable")||wasteType.equalsIgnoreCase("B")){
                                     wasteType = "Recyclable";
                                     check = 3;
                                     next = true;
@@ -278,7 +255,7 @@ public class Main {
                             do{
                                 System.out.printf("%n%s Waste id: ",wasteType);
                                 idWaste = main.reader.nextLine();
-                                if(main.control.searchInfoWaste(idWaste).equalsIgnoreCase("Doesn't exist")){
+                                if(main.control.searchInfoWaste(idWaste).equalsIgnoreCase("Doesn't exist.")){
                                     next = true;
                                 }else{
                                     System.out.printf("%nThe Waste Already Exist. Try Again.%n");
@@ -298,24 +275,12 @@ public class Main {
                             do{
                                 System.out.printf("%n%s Waste Origin: ",wasteType);
                                 origin = main.reader.nextLine();
-                                if(origin.equalsIgnoreCase(Waste.CONSTRUCTION)){
-                                    origin = Waste.CONSTRUCTION;
-                                    next = true;
-                                }else if(origin.equalsIgnoreCase(Waste.DOMICILIARY)){
-                                    origin = Waste.DOMICILIARY;
-                                    next = true;
-                                }else if(origin.equalsIgnoreCase(Waste.HOSPITABLE)){
-                                    origin = Waste.HOSPITABLE;
-                                    next = true;
-                                }else if(origin.equalsIgnoreCase(Waste.INDUSTRIAL)){
-                                    origin = Waste.INDUSTRIAL;
-                                    next = true;
-                                }else if(origin.equalsIgnoreCase(Waste.MUNICIPAL)){
-                                    origin = Waste.MUNICIPAL;
-                                    next = true;
+                                if(main.control.checkOrigin(origin).equalsIgnoreCase("Incorrect.")){
+                                    System.out.printf("%nIncorrect Input. Try Again.%n");
+                                    next = false;
                                 }else{
-                                    System.out.printf("%nIncorrect Origin. Try Again.%n");
-                                    next = false; 
+                                    origin = main.control.checkOrigin(origin);
+                                    next = true;
                                 }
                             }while(next==false);
                             System.out.printf("%n%s Waste Color: ",wasteType);
@@ -336,7 +301,7 @@ public class Main {
                             if(check==1){
                                 do{
                                     System.out.printf("%n%s Waste Suitable for Composting? ",wasteType);
-                                    String aux = main.reader.nextLine();
+                                    aux = main.reader.nextLine();
                                     if(aux.equalsIgnoreCase("True")||aux.equalsIgnoreCase("T")){
                                         composting = true;
                                         next = true;
@@ -349,35 +314,31 @@ public class Main {
                                     } 
                                 }while(next==false);
                             }else if(check==2){
+                                System.out.printf("%nTips for %s Waste: ",wasteType);
                                 tips = main.reader.nextLine();
                             }else if(check==3){
                                 do{
                                     System.out.printf("%n%s Waste Type: ",wasteType);
                                     typeRecyclable = main.reader.nextLine();
-                                    if(typeRecyclable.equalsIgnoreCase(Recyclable.PAPER)){
-                                        typeRecyclable = Recyclable.PAPER;
-                                        next = true;
-                                    }else if(typeRecyclable.equalsIgnoreCase(Recyclable.PAPERBOARD)){
-                                        typeRecyclable = Recyclable.PAPERBOARD;
-                                        next = true;
-                                    }else if(typeRecyclable.equalsIgnoreCase(Recyclable.GLASS)){
-                                        typeRecyclable = Recyclable.GLASS;
-                                        next = true;
-                                    }else if(typeRecyclable.equalsIgnoreCase(Recyclable.PLASTIC)){
-                                        typeRecyclable = Recyclable.PLASTIC;
-                                        next = true;
-                                    }else if(typeRecyclable.equalsIgnoreCase(Recyclable.METAL)){
-                                        typeRecyclable = Recyclable.METAL;
-                                        next = true;
-                                    }else{
+                                    if(main.control.checkTypeRec(typeRecyclable).equalsIgnoreCase("Incorrect.")){
                                         System.out.printf("%nIncorrect Input. Try Again.%n");
                                         next = false;
-                                    } 
+                                    }else{
+                                        typeRecyclable = main.control.checkTypeRec(typeRecyclable);
+                                        next = true;
+                                    }
                                 }while(next==false);
                                 System.out.printf("%n%s Waste Description: ",wasteType);
                                 descWaste = main.reader.nextLine();
                             }
                             next = false;
+                            if(check==1){
+                                main.control.addWaste(idWaste,nameWaste,origin,color,compostingTime,main.control.check(nameProduct),composting);
+                            }else if(check==2){
+                                main.control.addWaste(idWaste,nameWaste,origin,color,compostingTime,main.control.check(nameProduct),tips);
+                            }else if(check==3){
+                                main.control.addWaste(idWaste,nameWaste,origin,color,compostingTime,main.control.check(nameProduct),typeRecyclable,descWaste);
+                            }
                         }else if(endAux==3){
                             next = true;
                         }else{
@@ -423,7 +384,7 @@ public class Main {
                     do{
                         System.out.printf("%n<1> Next Search or <2> Return to the Menu? ");
                         endAux = main.reader.nextInt();
-                        if(endAux!=1||endAux!=2){
+                        if(endAux==1||endAux==2){
                             next = true;
                         }else{
                             System.out.printf("%nInvalid Function.%n");
@@ -432,17 +393,52 @@ public class Main {
                         main.reader.nextLine();
                     }while(next==false);
                 }while(endAux==1);
+            }else if(menu==7){
+                do{
+                    System.out.printf("%nCalculate Suitable for Composting to: ");
+                    search = main.reader.nextLine();
+                    System.out.printf("%n%s",main.control.showUsable(search));
+                    do{
+                        System.out.printf("%n<1> Next Search or <2> Return to the Menu? ");
+                        endAux = main.reader.nextInt();
+                        if(endAux==1||endAux==2){
+                            next = true;
+                        }else{
+                            System.out.printf("%nInvalid Function.%n");
+                            next = false;
+                        }
+                        main.reader.nextLine();
+                    }while(next==false);
+                }while(endAux==1);
+            }else if(menu==8){
+                main.instructions();
             }else if(menu==0){
                 end = true;
+            }else{
+                System.out.printf("%nInvalid Function.%n");
             }
         }while(end==false);
     }
 
+    //Method that show the menu
     public void menu(){
-        System.out.printf("%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n",
+        System.out.printf("%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%n",
         "RECICLAMOS","<1> Add Waste","<2> Add Products",
         "<3> Search Waste","<4> Show Waste",
         "<5> Show Products","<6> Show Product Waste",
+        "<7> Calculate Suitable Composting", "<8> Instructions",
         "<0> Exit");
+    }
+
+
+    //Method that show some instructions and lifehacks
+    public void instructions(){
+        System.out.printf("%n%s%n%s%n%s%n%s%n%s%n%n",
+        "Instructions:",
+        "<> There are 3 Types of Waste: Biodegradable, Inert and Recyclable. You can write the first letter in the input.",
+        "<> There are 5 Origin Waste: Industrial, Domiciliary, Hospitable, Construction and Municipal. You can write the first letter in the input.",
+        "<> There are 5 Type of Recyclable Waste: Paper, Paperboard, Glass, Plastic and Metal.",
+        "<> In the <3> Search Waste Function you can Write the Name or the id for search the Waste.",
+        "<> In the <6> Show Product Waste Function you can Write the Name or the id for search Product.");
     }
 }

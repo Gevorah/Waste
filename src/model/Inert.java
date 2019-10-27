@@ -12,16 +12,16 @@ public class Inert extends Waste{
 	@Override
 	public double harmfulEffect(){
 		double effect = 0;
-		if(super.getOrigin().equals(Waste.INDUSTRIAL)){
-			effect = super.getCompostingTime()*Waste.FACTINDUSTRIAL;
-		}else if(super.getOrigin().equals(Waste.DOMICILIARY)){
-			effect = super.getCompostingTime()*Waste.FACTDOMICILIARY;
-		}else if(super.getOrigin().equals(Waste.MUNICIPAL)){
-			effect = super.getCompostingTime()*Waste.FACTMUNICIPAL;
-		}else if(super.getOrigin().equals(Waste.CONSTRUCTION)){
-			effect = super.getCompostingTime()*Waste.FACTCONSTRUCTION;
-		}else if(super.getOrigin().equals(Waste.HOSPITABLE)){
-			effect = super.getCompostingTime()*Waste.FACTHOSPITABLE;
+		if(super.getOrigin().equals(Constants.INDUSTRIAL)){
+			effect = super.getCompostingTime()*Constants.FACTINDUSTRIAL;
+		}else if(super.getOrigin().equals(Constants.DOMICILIARY)){
+			effect = super.getCompostingTime()*Constants.FACTDOMICILIARY;
+		}else if(super.getOrigin().equals(Constants.MUNICIPAL)){
+			effect = super.getCompostingTime()*Constants.FACTMUNICIPAL;
+		}else if(super.getOrigin().equals(Constants.CONSTRUCTION)){
+			effect = super.getCompostingTime()*Constants.FACTCONSTRUCTION;
+		}else if(super.getOrigin().equals(Constants.HOSPITABLE)){
+			effect = super.getCompostingTime()*Constants.FACTHOSPITABLE;
 		}
 		return effect;
 	}

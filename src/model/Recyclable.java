@@ -1,12 +1,6 @@
 package model;
 
 public class Recyclable extends Waste implements Usable{
-
-	public static final String PAPER = "Paper";
-	public static final String PAPERBOARD = "Paperboard";
-	public static final String GLASS = "Glass";
-	public static final String PLASTIC = "Plastic";
-	public static final String METAL = "Metal";
 	
 	private String type;
 	private String desc;
@@ -20,16 +14,16 @@ public class Recyclable extends Waste implements Usable{
 	@Override
 	public double harmfulEffect(){
 		double effect = 0;
-		if(super.getOrigin().equals(Waste.INDUSTRIAL)){
-			effect = super.getCompostingTime()*(Waste.FACTINDUSTRIAL-0.02);
-		}else if(super.getOrigin().equals(Waste.DOMICILIARY)){
-			effect = super.getCompostingTime()*(Waste.FACTDOMICILIARY-0.02);
-		}else if(super.getOrigin().equals(Waste.MUNICIPAL)){
-			effect = super.getCompostingTime()*(Waste.FACTMUNICIPAL-0.02);
-		}else if(super.getOrigin().equals(Waste.CONSTRUCTION)){
-			effect = super.getCompostingTime()*(Waste.FACTCONSTRUCTION-0.02);
-		}else if(super.getOrigin().equals(Waste.HOSPITABLE)){
-			effect = super.getCompostingTime()*(Waste.FACTHOSPITABLE-0.02);
+		if(super.getOrigin().equals(Constants.INDUSTRIAL)){
+			effect = super.getCompostingTime()*(Constants.FACTINDUSTRIAL-0.02);
+		}else if(super.getOrigin().equals(Constants.DOMICILIARY)){
+			effect = super.getCompostingTime()*(Constants.FACTDOMICILIARY-0.02);
+		}else if(super.getOrigin().equals(Constants.MUNICIPAL)){
+			effect = super.getCompostingTime()*(Constants.FACTMUNICIPAL-0.02);
+		}else if(super.getOrigin().equals(Constants.CONSTRUCTION)){
+			effect = super.getCompostingTime()*(Constants.FACTCONSTRUCTION-0.02);
+		}else if(super.getOrigin().equals(Constants.HOSPITABLE)){
+			effect = super.getCompostingTime()*(Constants.FACTHOSPITABLE-0.02);
 		}
 		return effect;
 	}
