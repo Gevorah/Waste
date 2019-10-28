@@ -3,23 +3,35 @@ package ui;
 import model.Reciclamos;
 import java.util.Scanner;
 
+/**
+*	This class allows shows the functions for the user.
+*	@author Jhon Ijaji.
+*	@version 1.0
+*	@since 1.0
+*/
 public class Main {
 
     //Attributes
     private Scanner reader;
     private Reciclamos control;
 
+    /**
+	*	Main constructor<br>
+	*/
     //Constructor
     public Main(){
         reader = new Scanner(System.in);
     }
-    
+   
+    /**
+	*	This method initialize the relation and objects.
+	*/
     //Method that initialize the objects.
     public void init(){
         control = new Reciclamos();
         control.addProduct("10001","Mango","Yellow fruit");
         control.addWaste("12343","Mango Peel","Domiciliary","Green",10,control.check("Mango"),true);
-        control.addWaste("12344","Mango Seed","Domiciliary","White",3213,control.check("Mango"),false);
+        control.addWaste("12344","Mango Seed","Domiciliary","White",3223,control.check("Mango"),true);
     }
 
     public static void main(String[] args){
@@ -395,7 +407,7 @@ public class Main {
                 }while(endAux==1);
             }else if(menu==7){
                 do{
-                    System.out.printf("%nCalculate Suitable for Composting to: ");
+                    System.out.printf("%nCalculate Suitable to: ");
                     search = main.reader.nextLine();
                     System.out.printf("%n%s",main.control.showUsable(search));
                     do{
@@ -420,17 +432,22 @@ public class Main {
         }while(end==false);
     }
 
+    /**
+	*	This method show the menu.<br>
+	*/
     //Method that show the menu
     public void menu(){
         System.out.printf("%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%s%n%n",
         "RECICLAMOS","<1> Add Waste","<2> Add Products",
         "<3> Search Waste","<4> Show Waste",
         "<5> Show Products","<6> Show Product Waste",
-        "<7> Calculate Suitable Composting", "<8> Instructions",
+        "<7> Calculate Usable", "<8> Instructions",
         "<0> Exit");
     }
 
-
+    /**
+	*	This method show some instructions for the user.<br>
+	*/
     //Method that show some instructions and lifehacks
     public void instructions(){
         System.out.printf("%n%s%n%s%n%s%n%s%n%s%n%n",
@@ -439,6 +456,7 @@ public class Main {
         "<> There are 5 Origin Waste: Industrial, Domiciliary, Hospitable, Construction and Municipal. You can write the first letter in the input.",
         "<> There are 5 Type of Recyclable Waste: Paper, Paperboard, Glass, Plastic and Metal.",
         "<> In the <3> Search Waste Function you can Write the Name or the id for search the Waste.",
-        "<> In the <6> Show Product Waste Function you can Write the Name or the id for search Product.");
+        "<> In the <6> Show Product Waste Function you can Write the Name or the id for search Product.",
+        "<> When input if the biodegradable waste is suitable for composting. You must write true or false. You can write the fisrt letter.");
     }
 }
