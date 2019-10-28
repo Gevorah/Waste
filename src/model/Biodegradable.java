@@ -77,7 +77,7 @@ public class Biodegradable extends Waste implements Usable{
 	*/
 	@Override
 	public boolean usableComposting(){
-		if(super.getCompostingTime()<365 || composting==true){
+		if(super.getCompostingTime()<365 && composting==true){
 			return true;
 		}else{
 			return false;
